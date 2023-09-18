@@ -1,0 +1,14 @@
+SELECT test_assignment,
+	COUNT(item_id) AS itemsCOUNT,
+	SUM(binaryOrders.orders_binary30d) AS Sum_Order30d
+FROM	
+(
+  SELECT final_assignments.item_id, final_assignments.test_number, final_assignments.test_assignment,
+    MAX(CASE WHEN (orders.created_at > final_assignments.test_start_date AND DATE_PART('day',orders.created_at - final_assignments.test_start_date) <= 30) 
+      THEN 1 ELSE 0 END) AS orders_binary30d
+  FROM dsv1069.final_assignments
+  LEFT JOIN dsv1069.orders ON orders.item_id = final_assignments.item_id
+  GROUP BY final_assignments.item_id, final_assignments.test_number, final_assignments.test_assignment
+) binaryOrders
+WHERE test_number = 'item_test_2'
+GROUP BY test_assignment
