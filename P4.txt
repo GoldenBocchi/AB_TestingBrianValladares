@@ -1,0 +1,15 @@
+SELECT test_assignment,
+	COUNT(item_id) AS itemsCOUNT,
+	SUM(binaryviews.views_binary30d) AS Sum_View30d,
+	AVG(binaryviews.views_binary30d) AS AVG_view30d
+FROM	
+(
+  SELECT final_assignments.item_id, final_assignments.test_number, final_assignments.test_assignment,
+    MAX(CASE WHEN (view_item_events.event_time > final_assignments.test_start_date AND DATE_PART('day',view_item_events.event_time - final_assignments.test_start_date) <= 30) 
+      THEN 1 ELSE 0 END) AS views_binary30d
+  FROM dsv1069.final_assignments
+  LEFT JOIN dsv1069.view_item_events ON view_item_events.item_id = final_assignments.item_id
+  GROUP BY final_assignments.item_id, final_assignments.test_number, final_assignments.test_assignment
+) binaryviews
+WHERE test_number = 'item_test_2'
+GROUP BY test_assignment
