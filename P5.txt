@@ -1,0 +1,11 @@
+VIEW BINS
+View BINS metrics indicates a P.value is 0.88 so is NOT STATISTICALLY SIGNIFICANT
+Control Succes Rate 30% / Treatment Success Rate 30%
+Relative LIFT SUCCESS betwwen control and tratment IS -1%
+
+--
+
+ORDERS BIN
+View BINS metrics indicates a P.value is 0.25 so is NOT STATISTICALLY SIGNIFICANT
+Control Succes Rate 82% / Treatment Success Rate 84%
+Relative LIFT SUCCESS betwwen control and tratment IS 2.3%
